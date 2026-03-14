@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-<<<<<<< HEAD
 def load_and_preprocess(path):
 
     data = pd.read_csv(path)
@@ -20,7 +19,6 @@ def load_and_preprocess(path):
     y = data["labels"]
 
     return X, y
-=======
 def load_and_preprocess(filepath):
     # Load dataset
     df = pd.read_csv(filepath)
@@ -41,4 +39,3 @@ def load_and_preprocess(filepath):
     # Let's keep it as is (multiclass or binary depending on labels)
     
     return X, y
->>>>>>> 6e3a2a09634f8f8a92c540cd44e21c494b9ab5f8

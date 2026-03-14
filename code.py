@@ -1,23 +1,22 @@
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+from preprocessing import load_and_preprocess
+from train_model import train_model
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
-def load_and_preprocess(filepath):
-    # Load dataset
-    df = pd.read_csv(filepath)
-    
-    # Identify categorical columns
-    categorical_cols = ['protocol_type', 'service', 'flag']
-    
-    # Encode categorical columns
-    le = LabelEncoder()
-    for col in categorical_cols:
-        df[col] = le.fit_transform(df[col])
-    
-    # Prepare X and y
-    X = df.drop('labels', axis=1)
-    y = df['labels']
-    
-    # Convert y to binary if necessary, but code.py uses accuracy_score
-    # Let's keep it as is (multiclass or binary depending on labels)
-    
-    return X, y
+if __name__ == "__main__":
+
+    # Charger et préparer les données
+    X, y = load_and_preprocess("dataset/kdd_train.csv")
+
+    # Séparer train et test
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    # Entraîner le modèle
+    model = train_model(X_train, y_train)
+
+    # Tester le modèle
+    y_pred = model.predict(X_test)
+
+    print("Accuracy:", accuracy_score(y_test, y_pred))
